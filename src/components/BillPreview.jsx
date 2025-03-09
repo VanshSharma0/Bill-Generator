@@ -1,4 +1,5 @@
 import React from 'react';
+import logo from '/logo.png';
 
 function BillPreview({ billData }) {
   // Calculate totals
@@ -17,12 +18,17 @@ function BillPreview({ billData }) {
 
   return (
     <div className="bill-preview bg-white p-6 border border-gray-800 rounded shadow-lg print:border-0 print:shadow-none max-w-4xl mx-auto">
-      <div className="text-center pb-3 border-b border-gray-800">
-        <h1 className="text-2xl font-bold">MURTI JEWELLERS</h1>
-        <p className="text-base">Gold Diamond & Silver Ornaments</p>
-        <p className="text-xs">Rz-99, Manas Kunj, New Delhi-110059</p>
-        <p className="text-xs">Phone: 011-49090583</p>
+      {/* Header with Logo */}
+      <div className="flex items-center justify-between pb-3 border-b border-gray-800">
+        <img src={logo} alt="Murti Jewellers Logo" className="h-16 w-auto" /> {/* Adjust size as needed */}
+        <div className="text-center flex-1">
+          <h1 className="text-2xl font-bold">MURTI JEWELLERS</h1>
+          <p className="text-base">Gold Diamond & Silver Ornaments</p>
+          <p className="text-xs">Rz-99, Manas Kunj, New Delhi-110059</p>
+          <p className="text-xs">Phone: 011-49090583</p>
+        </div>
       </div>
+
 
       <div className="flex justify-between py-2 border-b border-gray-800">
         <div className="w-1/2">
