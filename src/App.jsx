@@ -6,7 +6,7 @@ function App() {
   const [billData, setBillData] = useState({
     invoiceNumber: '602',
     date: new Date().toISOString().substr(0, 10),
-    gstin: 'xyz',
+    gstin: '07AZTPS3304H1Z2',
     customerName: '',
     customerAddress: '',
     customerGstin: '',
@@ -40,7 +40,7 @@ function App() {
     console.log('Updating billData:', updatedData); // Debugging
     setBillData((prevData) => ({ ...prevData, ...updatedData }));
   };
-  
+
   const handlePrint = () => {
     window.print();
   };
