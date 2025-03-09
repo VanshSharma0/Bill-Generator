@@ -19,3 +19,16 @@
     page-break-inside: avoid;
   }
 }
+
+@media print {
+  @page {
+    margin: 0;
+  }
+  body {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  header, footer {
+    display: none !important;
+  }
+}
