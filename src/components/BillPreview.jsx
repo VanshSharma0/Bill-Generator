@@ -1,34 +1,36 @@
 import React from 'react';
 import logo from '/logo.png';
 
-function BillPreview({ billData }) {
-  // Calculate totals
-  const subtotal = billData.items.reduce((sum, item) => sum + parseFloat(item.amount || 0), 0);
-  const discountAmount = (subtotal * (billData.discount / 100)) || 0;
-  const taxableAmount = subtotal - discountAmount;
-  const makingChargeAmount = (taxableAmount * (billData.makingChargeRate / 100)) || 0;
-  const sgstAmount = (taxableAmount * (billData.sgstRate / 100)) || 0;
-  const cgstAmount = (taxableAmount * (billData.cgstRate / 100)) || 0;
-  const grandTotal = taxableAmount + makingChargeAmount + sgstAmount + cgstAmount;
-
-  const formattedDate = new Date(billData.date).toLocaleDateString('en-IN', {
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric'
-  });
-
-  return (
-    <div className="bill-preview bg-white p-4 border border-gray-800 rounded shadow-lg print:border-0 print:shadow-none max-w-4xl mx-auto min-h-screen flex flex-col print:min-h-0 print:h-auto print:max-h-screen">
-      {/* Header with Logo */}
-      <div className="flex items-center justify-between pb-2 border-b border-gray-800">
-        <img src={logo} alt="Murti Jewellers Logo" className="h-14 w-auto" /> {/* Slightly reduced size */}
-        <div className="text-center flex-1">
-          <h1 className="text-xl font-bold">MURTI JEWELLERS</h1>
-          <p className="text-sm">Gold Diamond & Silver Ornaments</p>
-          <p className="text-xs">Rz-99, Manas Kunj, New Delhi-110059</p>
-          <p className="text-xs">Phone: 011-49090583</p>
+function BillPreview({ billData, onPrint }) {
+    // Calculate totals
+    const subtotal = billData.items.reduce((sum, item) => sum + parseFloat(item.amount || 0), 0);
+    const discountAmount = (subtotal * (billData.discount / 100)) || 0;
+    const taxableAmount = subtotal - discountAmount;
+    const makingChargeAmount = (taxableAmount * (billData.makingChargeRate / 100)) || 0;
+    const sgstAmount = (taxableAmount * (billData.sgstRate / 100)) || 0;
+    const cgstAmount = (taxableAmount * (billData.cgstRate / 100)) || 0;
+    const grandTotal = taxableAmount + makingChargeAmount + sgstAmount + cgstAmount;
+  
+    const formattedDate = new Date(billData.date).toLocaleDateString('en-IN', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+    });
+  
+    return (
+      <div className="bill-preview bg-white p-4 border border-gray-800 rounded shadow-lg print:border-0 print:shadow-none max-w-4xl mx-auto min-h-screen flex flex-col print:min-h-0 print:h-auto print:max-h-screen">
+        {/* Header with Logo */}
+        <div className="flex items-center justify-between pb-2 border-b border-gray-800 print:border-b-0">
+          <img src={logo} alt="Murti Jewellers Logo" className="h-14 w-auto print:h-10" /> {/* Reduce logo size for print */}
+          <div className="text-center flex-1">
+            <h1 className="text-xl font-bold print:text-lg">MURTI JEWELLERS</h1>
+            <p className="text-sm print:text-xs">Gold Diamond & Silver Ornaments</p>
+            <p className="text-xs print:text-xxs">Rz-99, Manas Kunj, New Delhi-110059</p>
+            <p className="text-xs print:text-xxs">Phone: 011-49090583</p>
+          </div>
         </div>
-      </div>
+  
+
 
       <div className="flex justify-between py-1 border-b border-gray-800">
         <div className="w-1/2">
