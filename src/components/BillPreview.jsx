@@ -81,7 +81,7 @@ function BillPreview({ billData, onPrint }) {
               </tr>
               
               {/* Item Details - Now with flexible height */}
-              <tr className="h-full">
+              <tr className="min-h-0">
                 <td className="px-4 py-2 border-b border-gray-800 align-top" style={{ height: '40%' }}>
                   <table className="w-full border-collapse text-sm h-full">
                     <thead>

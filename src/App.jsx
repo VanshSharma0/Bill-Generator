@@ -1,6 +1,10 @@
 import { useState, useEffect } from 'react';
 import BillForm from './components/BillForm';
 import BillPreview from './components/BillPreview';
+import * as XLSX from 'xlsx'; 
+import PreviousBills from './components/PreviousBills'; // Create this component
+import CustomersPage from './components/CustomersPage';  // Create this component
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 
 function App() {
   const [billData, setBillData] = useState({
@@ -104,18 +108,60 @@ function App() {
     }
   };
 
+  const exportCustomersToExcel = () => {
+    const dataToExport = customers.map(customer => ({
+      'Customer Name': customer.name,
+      'Address': customer.address,
+      'GSTIN': customer.gstin,
+      'State': customer.state,
+      'State Code': customer.stateCode,
+      'Phone': customer.phone,
+    }));
+  
+    const ws = XLSX.utils.json_to_sheet(dataToExport);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Customers');
+  
+    XLSX.writeFile(wb, 'customer_data.xlsx');
+  };
+
+  const saveBillToLocalStorage = (billData) => {
+    const bills = JSON.parse(localStorage.getItem('bills')) || [];
+    bills.push(billData); 
+    localStorage.setItem('bills', JSON.stringify(bills));
+  };
+  
+
   return (
-    <div className="max-w-6xl mx-auto p-6">
-      <h1 className="text-3xl font-bold mb-6">Jewelry Bill Generator</h1>
-      <BillForm
-        billData={billData}
-        onFormChange={handleFormChange}
-        onPrint={handlePrint}
-        onSaveCustomer={saveCustomerDetails}
-        onAutoFillCustomer={autoFillCustomerDetails}
-      />
-      <BillPreview billData={billData} />
-    </div>
+    <BrowserRouter>
+      <div> 
+        <nav>
+          <ul>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/previous-bills">Previous Bills</Link></li>
+            <li><Link to="/customers">Customers</Link></li>
+          </ul>
+        </nav>
+
+        <Routes>
+          <Route path="/" element={ 
+            <div className="max-w-6xl mx-auto p-6">
+              <h1 className="text-3xl font-bold mb-6">Jewelry Bill Generator</h1>
+              <BillForm
+                billData={billData}
+                onFormChange={handleFormChange}
+                onPrint={handlePrint}
+                onSaveCustomer={saveCustomerDetails}
+                onAutoFillCustomer={autoFillCustomerDetails}
+              />
+              <BillPreview billData={billData} />
+            </div>
+          } />
+          <Route path="/previous-bills" element={<PreviousBills />} />
+          <Route path="/customers" element={<CustomersPage />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 
