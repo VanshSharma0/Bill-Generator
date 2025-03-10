@@ -27,6 +27,7 @@ function BillPreview({ billData, onPrint }) {
   
     return (
       <div className="bill-preview bg-white p-6 border border-gray-800 rounded shadow-lg print:border-0 print:shadow-none mx-auto min-h-screen flex flex-col print:min-h-0 print:h-auto print:max-h-screen" style={{ width: '210mm', minHeight: '297mm' }}>
+        <div className="print-area">
         <div className="mx-6 print:mx-4 h-full flex flex-col">
           <table className="w-full border border-gray-800 h-full">
             <tbody>
@@ -212,6 +213,7 @@ function BillPreview({ billData, onPrint }) {
               Print Invoice
             </button>
           </div>
+        </div>
         </div>
       </div>
     );
