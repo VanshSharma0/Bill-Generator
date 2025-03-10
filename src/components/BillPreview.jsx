@@ -26,10 +26,9 @@ function BillPreview({ billData, onPrint }) {
     };
   
     return (
-      <div className="bill-preview bg-white p-6 border border-gray-800 rounded shadow-lg print:border-0 print:shadow-none mx-auto min-h-screen flex flex-col print:min-h-0 print:h-auto print:max-h-screen" style={{ width: '210mm', minHeight: '297mm' }}>
-        <div className="print-area">
-        <div className="mx-6 print:mx-4 h-full flex flex-col">
-          <table className="w-full border border-gray-800 h-full">
+      <div className="bill-preview bg-white p-6 border border-gray-800 rounded shadow-lg print:border-0 print:shadow-none mx-auto print:h-auto">
+        <div className="mx-6 print:mx-4">
+          <table className="w-full border border-gray-800">
             <tbody>
               {/* Header with Logo */}
               <tr>
@@ -81,10 +80,10 @@ function BillPreview({ billData, onPrint }) {
                 </td>
               </tr>
               
-              {/* Item Details - Now with flexible height */}
-              <tr className="min-h-0">
-                <td className="px-4 py-2 border-b border-gray-800 align-top" style={{ height: '40%' }}>
-                  <table className="w-full border-collapse text-sm h-full">
+              {/* Item Details - Simplified height management */}
+              <tr>
+                <td className="px-4 py-2 border-b border-gray-800 align-top">
+                  <table className="w-full border-collapse text-sm">
                     <thead>
                       <tr className="bg-gray-100">
                         <th className="border border-gray-800 p-1 text-left w-12">S.No.</th>
@@ -96,7 +95,7 @@ function BillPreview({ billData, onPrint }) {
                         <th className="border border-gray-800 p-1 text-right w-20">Amount</th>
                       </tr>
                     </thead>
-                    <tbody className="h-full">
+                    <tbody>
                       {billData.items.map((item, index) => (
                         <tr key={item.id}>
                           <td className="border border-gray-800 p-1">{index + 1}</td>
@@ -108,8 +107,8 @@ function BillPreview({ billData, onPrint }) {
                           <td className="border border-gray-800 p-1 text-right">₹{formatIndianCurrency(parseFloat(item.amount))}</td>
                         </tr>
                       ))}
-                      {/* Create more empty rows to fill space */}
-                      {[...Array(Math.max(0, Math.min(10, 12 - billData.items.length)))].map((_, index) => (
+                      {/* Create more empty rows to fill space, but limit the number */}
+                      {[...Array(Math.max(0, Math.min(5, 10 - billData.items.length)))].map((_, index) => (
                         <tr key={`empty-${index}`}>
                           <td className="border border-gray-800 p-1">&nbsp;</td>
                           <td className="border border-gray-800 p-1"></td>
@@ -213,7 +212,6 @@ function BillPreview({ billData, onPrint }) {
               Print Invoice
             </button>
           </div>
-        </div>
         </div>
       </div>
     );
