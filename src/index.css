@@ -14,11 +14,13 @@
   }
 
   .bill-preview { 
+    /* Remove one instance of 'page-break-after: always;' */
+    page-break-after: always; /* Ensure the bill stays on one page */
     position: absolute;
     left: 0;
     top: 0;
     width: 100%;
-    page-break-inside: avoid; /* This prevents breaks within the bill */
+    page-break-inside: avoid; /* Prevent page breaks within the bill */
   }
 
   .item-list { /* Example for a list of items */
