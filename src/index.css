@@ -8,7 +8,7 @@
     visibility: hidden;
   }
   .bill-preview, .bill-preview * {
-    visibility: visible;
+    visibility: visible; /* Make sure the bill is visible when printing */
   }
   .bill-preview {
     page-break-after: always;
