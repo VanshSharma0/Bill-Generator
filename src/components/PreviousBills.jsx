@@ -92,68 +92,20 @@ function PreviousBills() {
 
       {/* Modal for Bill Details */}
       <Modal 
-        isOpen={Boolean(selectedBill)}
-        onRequestClose={closeModal}
-        contentLabel="Bill Details"
-        className="modal" 
-      > 
-        <div className="print:hidden">
-          <button onClick={closeModal} className="absolute top-2 right-2">
-            Close 
-          </button>
-        </div>
-        {selectedBill && ( 
-          <div className="p-4">
-            <h3 className="text-lg font-bold mb-2">Invoice No. {selectedBill.invoiceNumber}</h3>
-            {/* ... other bill details you want to display ... */}
-            <p><span className="font-bold">Date:</span> {selectedBill.date}</p>
-            <p><span className="font-bold">Customer:</span> {selectedBill.customerName}</p>
-
-            <table className="min-w-full bg-white border border-gray-300 mt-4">
-              {/* ...table header... */}
-              <thead>
-                <tr>
-                  <th className="py-2 px-4 border-b text-left">Description</th>
-                  <th className="py-2 px-4 border-b text-right">Qty</th> 
-                  <th className="py-2 px-4 border-b text-right">Rate</th> 
-                  <th className="py-2 px-4 border-b text-right">Amount</th>
-                </tr> 
-              </thead>
-              <tbody>
-                {selectedBill.items.map((item, index) => (
-                  <tr key={index}>
-                    <td className="py-2 px-4 border-b">{item.description}</td>
-                    <td className="py-2 px-4 border-b text-right">{item.quantity}</td>
-                    <td className="py-2 px-4 border-b text-right">{item.rate}</td>
-                    <td className="py-2 px-4 border-b text-right">{item.amount}</td> 
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-
-            {/* ... display totals and calculations ... */}
-            <div className="mt-4">
-              <div className="flex justify-end">
-                <div className="w-1/2 text-right"> 
-                  <div className="flex justify-between">
-                    <span className="font-semibold">Subtotal:</span>
-                    <span>₹{formatIndianCurrency(selectedBill.subtotal)}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="font-semibold">Discount:</span>
-                    <span>₹{formatIndianCurrency(selectedBill.discountAmount)}</span>
-                  </div>
-                  {/* ... other calculations ... */} 
-                  <div className="flex justify-between border-t pt-2 mt-2">
-                    <span className="font-bold">Grand Total:</span>
-                    <span className="font-bold">₹{formatIndianCurrency(selectedBill.grandTotal)}</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        )}
-      </Modal>
+  isOpen={Boolean(selectedBill)}
+  onRequestClose={closeModal}
+  contentLabel="Bill Details"
+  className="modal" 
+> 
+  <div className="print:hidden">
+    <button onClick={closeModal} className="absolute top-2 right-2">
+      Close 
+    </button>
+  </div>
+  {selectedBill && ( 
+    <PrintableBill billData={selectedBill} />
+  )}
+</Modal>
     </div>
   );
 }
