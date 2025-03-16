@@ -1,7 +1,7 @@
 // src/components/PreviousBills.jsx
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
-import { formatIndianCurrency } from '../utils/currencyFormatter'; // Assuming you have this utility
+import { formatIndianCurrency } from '../utils/currencyFormatter.js'; // Assuming you have this utility
 
 Modal.setAppElement('#root'); 
 
